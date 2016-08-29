@@ -1,5 +1,7 @@
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hi!");
+        AdvancedField field = new AdvancedField(3, 4);
+        System.out.println(field);
     }
 }
