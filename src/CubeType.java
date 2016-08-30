@@ -7,7 +7,7 @@ public enum CubeType {
             return "W";
         }
         if (this == BLACK) {
-            return "D";
+            return "B";
         }
         if (this == GLASS) {
             return "G";

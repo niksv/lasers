@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AdvancedField {
 
@@ -75,24 +72,28 @@ public class AdvancedField {
         return true;
     }
 
-    List<Integer> checkLaser(Laser laser) {
-        return checkDirection(laser.x, laser.y, laser, laser.direction, true);
+    Set<Integer> checkLaser(Laser laser) {
+        return checkDirection(laser.x, laser.y, new ArrayList<>(), laser.direction);
     }
 
-    List<Integer> checkDirection(int x, int y, Laser l, char d){
-        return checkDirection(x, y, l, d, false);
-    }
+    Set<Integer> checkDirection(int x, int y, List<Laser> previous, char d){
+        Set<Integer> res = new HashSet<>();
 
-    List<Integer> checkDirection(int x, int y, Laser l, char d, boolean first){
-        List<Integer> res = new ArrayList<>();
-
-        if (!first && l.x == x && l.y == y && l.direction == d) {
-            return res;
+        for (Laser p : previous) {
+            if (p.x == x && p.y == y && p.direction == d) {
+                return res;
+            }
         }
+        previous.add(new Laser(x, y, d));
 
         if (field[x][y] == 'o') {
             res.add(getHoleNumber(x, y));
         }
+
+        if (d == 's') {
+            return res;
+        }
+
 
         int cx = -1;
         int cy = -1;
@@ -120,12 +121,6 @@ public class AdvancedField {
         if (cx < 0 || cy < 0 || cx >= this.l || cy >= this.c) {
             return res;
         }
-
-        if (field[cx][cy] == 'D') {
-            return res;
-        }
-
-
 
         return res;
     }
