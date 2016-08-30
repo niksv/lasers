@@ -18,6 +18,10 @@ public class Directions {
         }
     }
 
+    public static List<Laser> getDirections(int type, char direction, char cellType) {
+        return d.get(type).get(direction).get(cellType);
+    }
+
     static {
         d = new HashMap<>();
         add(1, 'u', 'W', new Laser[]{new Laser(0, 0, 'r')});
@@ -83,5 +87,13 @@ public class Directions {
         add(2, 'r', '.', new Laser[]{new Laser(1, 1, 'r')});
         add(2, 'r', ' ', new Laser[]{new Laser(1, 1, 'r')});
 
+        add(2, 'd', 'W', new Laser[]{new Laser(0, 0, 'r')});
+        add(2, 'd', 'G', new Laser[]{new Laser(0, 0, 'r'), new Laser(1, -1, 'd')});
+        add(2, 'd', 'B', new Laser[]{});
+        add(2, 'd', 'b', new Laser[]{new Laser(1, -1, 's'), new Laser(0, -2, 's'), new Laser(-1, -1, 's')});
+        add(2, 'd', 'w', new Laser[]{new Laser(1, -1, 's'), new Laser(0, -2, 's'), new Laser(-1, -1, 's'), new Laser(0, 0, 'r')});
+        add(2, 'd', 'D', new Laser[]{new Laser(0, -2, 'd')});
+        add(2, 'd', '.', new Laser[]{new Laser(1, -1, 'd')});
+        add(2, 'd', ' ', new Laser[]{new Laser(1, -1, 'd')});
     }
 }

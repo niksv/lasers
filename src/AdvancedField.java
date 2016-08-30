@@ -48,27 +48,24 @@ public class AdvancedField {
         field[x][y] = 'o';
     }
 
-    boolean check() {
-        return check(false);
-    }
+    boolean check(){
+        Set<Integer> checked = new HashSet<>();
 
-    boolean check(boolean change){
-        boolean[] checked = new boolean[holes.size()];
-        for(int i = 0; i < checked.length; i++) {
-            checked[i] = false;
-        }
 
         for (Laser laser : lasers) {
-
+            checked.addAll(checkLaser(laser));
         }
 
+        if (checked.size() != holes.size()) {
+            return false;
+        }
 
-
-        for (boolean c : checked) {
-            if (!c) {
+        for (int i = 0; i < holes.size(); i++) {
+            if (!checked.contains(i)) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -120,6 +117,10 @@ public class AdvancedField {
 
         if (cx < 0 || cy < 0 || cx >= this.l || cy >= this.c) {
             return res;
+        }
+
+        for (Laser direction : Directions.getDirections(c, d, field[cx][cy])) {
+            res.addAll(checkDirection(x + direction.x, y + direction.y, previous, direction.direction));
         }
 
         return res;
