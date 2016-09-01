@@ -1,9 +1,8 @@
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    public static void solve(AdvancedField field, String cells) {
+    private static void solve(AdvancedField field, String cells) {
         Map<Character, Integer> cellMap = new HashMap<>();
         for (int i = 0; i < cells.length(); i++) {
             if (!cellMap.containsKey(cells.charAt(i))) {
@@ -15,7 +14,7 @@ public class Main {
         check(field, cellMap, 1, 1);
     }
 
-    public static boolean check(AdvancedField field, Map<Character, Integer> cells, int x, int y) {
+    private static boolean check(AdvancedField field, Map<Character, Integer> cells, int x, int y) {
         boolean needCheck = true;
         for (Integer count : cells.values()) {
             if (count != 0) {

@@ -3,9 +3,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Directions {
-    public static Map<Integer, Map<Character, Map<Character, List<Laser>>>> d;
-    public static void add(int type, char direction, char cellType, Laser[] directions) {
+class Directions {
+    private static Map<Integer, Map<Character, Map<Character, List<Laser>>>> d;
+    private static void add(int type, char direction, char cellType, Laser[] directions) {
         if (!d.containsKey(type)) {
             d.put(type, new HashMap<>());
         }
@@ -18,7 +18,7 @@ public class Directions {
         }
     }
 
-    public static List<Laser> getDirections(int type, char direction, char cellType) {
+    static List<Laser> getDirections(int type, char direction, char cellType) {
         return d.get(type).get(direction).get(cellType);
     }
 

@@ -1,14 +1,14 @@
 import java.util.*;
 
-public class AdvancedField {
+class AdvancedField {
 
     int l;
     int c;
     char[][] field;
-    List<Laser> lasers;
-    List<Hole> holes;
+    private List<Laser> lasers;
+    private List<Hole> holes;
 
-    public AdvancedField(int l, int c) {
+    AdvancedField(int l, int c) {
         this.l = l * 2 + 1;
         this.c = c * 2 + 1;
         lasers = new ArrayList<>();
@@ -38,12 +38,12 @@ public class AdvancedField {
         }
     }
 
-    public void addLazer(int x, int y, char direction) {
+    void addLazer(int x, int y, char direction) {
         lasers.add(new Laser(x, y, direction));
         field[x][y] = direction;
     }
 
-    public void addHole(int x, int y) {
+    void addHole(int x, int y) {
         holes.add(new Hole(x, y));
         field[x][y] = 'o';
     }
@@ -69,11 +69,11 @@ public class AdvancedField {
         return true;
     }
 
-    Set<Integer> checkLaser(Laser laser) {
+    private Set<Integer> checkLaser(Laser laser) {
         return checkDirection(laser.x, laser.y, new ArrayList<>(), laser.direction);
     }
 
-    Set<Integer> checkDirection(int x, int y, List<Laser> previous, char d){
+    private Set<Integer> checkDirection(int x, int y, List<Laser> previous, char d){
         Set<Integer> res = new HashSet<>();
 
         for (Laser p : previous) {
@@ -126,7 +126,7 @@ public class AdvancedField {
         return res;
     }
 
-    int getHoleNumber(int x, int y) {
+    private int getHoleNumber(int x, int y) {
         for (int i = 0; i < holes.size(); i++) {
             if (holes.get(i).x == x && holes.get(i).y == y) {
                 return i;
