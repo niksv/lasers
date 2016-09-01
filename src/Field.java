@@ -1,6 +1,6 @@
 import java.util.*;
 
-class AdvancedField {
+class Field {
 
     int l;
     int c;
@@ -8,7 +8,7 @@ class AdvancedField {
     private List<Laser> lasers;
     private List<Hole> holes;
 
-    AdvancedField(int l, int c) {
+    Field(int l, int c) {
         this.l = l * 2 + 1;
         this.c = c * 2 + 1;
         lasers = new ArrayList<>();

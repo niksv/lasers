@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static void solve(AdvancedField field, String cells) {
+    private static void solve(Field field, String cells) {
         Map<Character, Integer> cellMap = new HashMap<>();
         for (int i = 0; i < cells.length(); i++) {
             if (!cellMap.containsKey(cells.charAt(i))) {
@@ -14,7 +14,7 @@ public class Main {
         check(field, cellMap, 1, 1);
     }
 
-    private static boolean check(AdvancedField field, Map<Character, Integer> cells, int x, int y) {
+    private static boolean check(Field field, Map<Character, Integer> cells, int x, int y) {
         boolean needCheck = true;
         for (Integer count : cells.values()) {
             if (count != 0) {
@@ -71,7 +71,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        AdvancedField field = new AdvancedField(5, 5);
+        Field field = new Field(5, 5);
         field.addLazer(1, 2, 'r');
         field.addLazer(4, 9, 'd');
         field.addHole(3, 6);
