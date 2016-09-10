@@ -38,7 +38,7 @@ public class Main {
         int nx = -1;
         int ny = -1;
 
-        if (y + 2 <field.c) {
+        if (y + 2 < field.c) {
             nx = x;
             ny = y + 2;
         } else {
@@ -71,21 +71,14 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Field field = new Field(5, 5);
-        field.addLazer(1, 2, 'r');
-        field.addLazer(4, 9, 'd');
+        Field field = new Field(5, 4);
+        field.addLazer(2, 1, 'r');
+        field.addHole(3, 0);
+        field.addHole(1, 6);
         field.addHole(3, 6);
-        field.addHole(5, 6);
-        field.addHole(7, 6);
-        field.addHole(6, 9);
-        field.addHole(9, 2);
-        field.field[1][1] = '.';
-        field.field[1][9] = '.';
-        field.field[5][5] = '.';
-        field.field[9][1] = '.';
-        field.field[9][9] = '.';
+        field.field[9][7] = '.';
         System.out.println(field);
 //        System.out.println(field.check());
-        solve(field, "WWWWW");
+        solve(field, "WWWPP");
     }
 }

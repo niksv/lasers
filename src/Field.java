@@ -5,7 +5,7 @@ class Field {
     int l;
     int c;
     char[][] field;
-    private List<Laser> lasers;
+    private List<Point> lasers;
     private List<Hole> holes;
 
     Field(int l, int c) {
@@ -39,7 +39,7 @@ class Field {
     }
 
     void addLazer(int x, int y, char direction) {
-        lasers.add(new Laser(x, y, direction));
+        lasers.add(new Point(x, y, direction));
         field[x][y] = direction;
     }
 
@@ -52,7 +52,7 @@ class Field {
         Set<Integer> checked = new HashSet<>();
 
 
-        for (Laser laser : lasers) {
+        for (Point laser : lasers) {
             checked.addAll(checkLaser(laser));
         }
 
@@ -69,19 +69,19 @@ class Field {
         return true;
     }
 
-    private Set<Integer> checkLaser(Laser laser) {
+    private Set<Integer> checkLaser(Point laser) {
         return checkDirection(laser.x, laser.y, new ArrayList<>(), laser.direction);
     }
 
-    private Set<Integer> checkDirection(int x, int y, List<Laser> previous, char d){
+    private Set<Integer> checkDirection(int x, int y, List<Point> previous, char d){
         Set<Integer> res = new HashSet<>();
 
-        for (Laser p : previous) {
+        for (Point p : previous) {
             if (p.x == x && p.y == y && p.direction == d) {
                 return res;
             }
         }
-        previous.add(new Laser(x, y, d));
+        previous.add(new Point(x, y, d));
 
         if (field[x][y] == 'o') {
             res.add(getHoleNumber(x, y));
@@ -119,11 +119,32 @@ class Field {
             return res;
         }
 
-        for (Laser direction : Directions.getDirections(c, d, field[cx][cy])) {
-            res.addAll(checkDirection(x + direction.x, y + direction.y, previous, direction.direction));
+        int startX = x;
+        int startY = y;
+
+        if (field[cx][cy] == 'P') {
+            Point secondPortal = getSecondPortal(cx, cy);
+            startX += secondPortal.x - cx;
+            startY += secondPortal.y - cy;
+        }
+
+        for (Point direction : Directions.getDirections(c, d, field[cx][cy])) {
+            res.addAll(checkDirection(startX + direction.x, startY + direction.y, previous, direction.direction));
         }
 
         return res;
+    }
+
+    private Point getSecondPortal(int x, int y) {
+        for (int i = 1; i < l; i += 2) {
+            for (int j = 1; j < c; j += 2) {
+                if (field[i][j] == 'P' && !(i == x && j == y)) {
+                    return new Point(i, j, 'P');
+                }
+            }
+        }
+
+        return null;
     }
 
     private int getHoleNumber(int x, int y) {
