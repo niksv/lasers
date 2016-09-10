@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+    private static int iterations = 0;
     private static void solve(Field field, String cells) {
         Map<Character, Integer> cellMap = new HashMap<>();
         for (int i = 0; i < cells.length(); i++) {
@@ -24,11 +25,13 @@ public class Main {
         }
 
         if (needCheck) {
+            iterations++;
             boolean fin = field.check();
             if (fin) {
                 System.out.println(field);
+                System.out.println(iterations);
             }
-            return fin;
+            return false;
         }
 
         if (x == -1 || y == -1) {
@@ -72,13 +75,15 @@ public class Main {
 
     public static void main(String[] args) {
         Field field = new Field(5, 4);
-        field.addLazer(2, 1, 'r');
-        field.addHole(3, 0);
-        field.addHole(1, 6);
+        field.addLazer(9, 8, 'l');
         field.addHole(3, 6);
-        field.field[9][7] = '.';
+        field.addHole(5, 8);
+        field.addHole(7, 2);
+        field.addHole(7, 8);
+//        field.field[11][1] = '.';
         System.out.println(field);
 //        System.out.println(field.check());
-        solve(field, "WWWPP");
+        solve(field, "WWwww");
+        System.out.println(iterations);
     }
 }
